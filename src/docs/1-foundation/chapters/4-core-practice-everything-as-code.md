@@ -1,0 +1,3 @@
+## Infrastructure as platform
+
+There is a vast landscape of tools relating in some way to modern cloud infrastructure. The question of which technologies to select and how to fit them together can be overwhelming. This chapter presents a model for thinking about the higher-level concerns of your platform the capabilities it provides, and the infrastructure resources you my assemble to provide those capabilities.
