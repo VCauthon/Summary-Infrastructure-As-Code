@@ -1,5 +1,10 @@
 # Summary-Infrastructure-As-Code
-Summary of everything learned about infrastructure as code
+
+The purpose of this summary is to explore how cloud and automation technologies can be leveraged to make changes easily, safely, quickly, and responsibly through Infrastructure as Code (IaC).
+
+Since the benefits of IaC don’t come automatically from cloud or automation tools, this summary focuses on best practices and demonstrates how to apply them through practical examples.
+
+# TODO: ⚠️ Check if there are pending TODOs in the documentation
 
 ## Modules
 
