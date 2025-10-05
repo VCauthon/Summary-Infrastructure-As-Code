@@ -58,14 +58,19 @@ There are three core practices for implementing IaC.
 ### Define everything as code
 
 Defining all your stuff "as code" is a core practice for making changes rapidly and reliably. There are a few reasons why this helps:
-- _Reusability_:
+- _Reusability_: If you define a thing as code, you can create many instances of it, version it, rebuild it quickly
+- _Consistency_: Things built from code are built the same way every time. This makes system behavior predictable
+- _Transparency_: Everyone can see how the thing is built by looking at the code. Allowing them to understand it and to suggest improvements
 
 ### Continuously test and deliver all work in progress
 
+Effective infrastructure teams are rigorous about testing. They use automation to deploy and test each component of their system, and integrate all the work everyone has in progress.
 
+The idea is to build quality in rather than trying to test quality in.
 
 ### Build small, simple pieces that you can change independently 
 
+Teams struggle when their systems are large and tightly coupled. The larger a system is, the harder it is to change, and the easier it is to break.
 
+When you look at the codebase of a high-performing team, you see the difference. The system is composed of small, simple pieces. Each piece is easy to understand and has clearly defined interfaces. The team can easily change each component on its own, and can deploy and test each component in isolation.
 
-> The following chapters go into more detail about these practices
