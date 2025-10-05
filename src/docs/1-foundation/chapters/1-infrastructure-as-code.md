@@ -1,3 +1,9 @@
+[__🧭 BACK TO MODULE__](../README.md)
+
+> [NEXT CHAPTER ➡️](./2-principles-of-cloud-age-infrastructure.md)
+
+---
+
 # What is Infrastructure as code
 
 This chapter explains the key characteristics of modern infrastructures, contrasting the Cloud Age with the Iron Age, and introduces the three core practices of Infrastructure as Code:
@@ -14,7 +20,7 @@ Infrastructure as Code is an approach to infrastructure automation based on prac
 
 Given that changes are the biggest risk to a production system, continuous change is inevitable, and making changes is the only way to improve a system, it makes sense to optimize your capability to make changes both rapidly and reliably. Research from the _Accelerate State of DevOps Report_ backs this up. Making changes frequently and reliably is correlated to organization success.
 
-> The Accelerate State of DevOps report can been seen [here](https://dora.dev/research/2024/dora-report/2024-dora-accelerate-state-of-devops-report.pdf) and the metric specified before in the chapter _Performance levels_.
+> ℹ️ The Accelerate State of DevOps report can been seen [here](https://dora.dev/research/2024/dora-report/2024-dora-accelerate-state-of-devops-report.pdf) and the metric specified before in the chapter _Performance levels_.
 
 ### Benefits of IaC
 
@@ -40,20 +46,22 @@ DORA's Accelerate research team identifies four key metrics for software deliver
 
 These metrics are grouped as follows:
 - __Throughput__:
-    1. Change lead time: This metric measures the time it takes for a code commit or change to be successfully deployed to production.
-    2. Deployment frequency: This metric measures how often application changes are deployed to production.
+    - _Change lead time_: This metric measures the time it takes for a code commit or change to be successfully deployed to production.
+    - Deployment frequency: This metric measures how often application changes are deployed to production.
 - __Stability__:
-    3. Change fail percentage: This metric measures the percentage of deployments that cause failures in production, requiring hotfixes or rollbacks.
-    4. Failed deployment recovery time: This metric measures the time it takes to recover from failed deployment.
+    - _Change fail percentage_: This metric measures the percentage of deployments that cause failures in production, requiring hotfixes or rollbacks.
+    - _Failed deployment recovery time_: This metric measures the time it takes to recover from failed deployment.
 
-> This research can be seen [here](https://dora.dev/guides/dora-metrics-four-keys/)
+> ℹ️ This research can be seen [here](https://dora.dev/guides/dora-metrics-four-keys/)
 There are some objections  heard when teams don't
 
 # TODO: Shown an example on which this metrics are measured into a project
 
 ## The core practices
 
-There are three core practices for implementing IaC.
+<p align="center">
+  <img src="./static/the-core-practices.png" alt="image" width="50%">
+</p>
 
 ### Define everything as code
 
@@ -74,3 +82,4 @@ Teams struggle when their systems are large and tightly coupled. The larger a sy
 
 When you look at the codebase of a high-performing team, you see the difference. The system is composed of small, simple pieces. Each piece is easy to understand and has clearly defined interfaces. The team can easily change each component on its own, and can deploy and test each component in isolation.
 
+> ℹ️ Throughout this summary, we will go into more detail about these three core practices.
