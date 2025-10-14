@@ -121,3 +121,26 @@ resource "DummyProvider" "my_application_server" {
 If you compare this code with the one shown [here](#infrastructure-scripting) you can see that this code doesn't check the state of the infrastructure. It just define the desired state of the infrastructure (2CPU, 2GB of ram, the dummy-image, etc...).
 
 Tools that uses declarative languages checks the current attributes of the infrastructure against what is declared, and works out what changes to make to bring the infrastructure in line. For example, if someone changes in the infrastructure the RAM of your server, like going from 2GB to 3GB, the tool will detect that difference and will change again the RAM to 2GB.
+
+Here’s the improved version formatted in Markdown:
+
+````markdown
+#### Idempotency
+
+Idempotency means that when you apply a given piece of code, it always produces the same result — no matter how many times you run it.  
+
+For example, in the [previous section](#declarative-infrastructure-languages), we saw code that describes a desired state. If the tool implementing that code is designed correctly, it will __always__ produce the same output. This ensures the server remains in the desired state. If someone makes manual changes that are not defined in the code, the tool will detect the configuration drift and automatically correct it by reapplying the desired configuration.
+
+Here’s an example of a shell script that __is not idempotent__:
+
+```sh
+echo "spock:*:1010:1010:Spock:/home/spock:/bin/bash" \
+    >> /etc/passwd
+````
+
+Running this script once will add the user `spock` to the `/etc/passwd` file. However, running it ten times will add ten identical entries for the same user.
+
+An __idempotent__ version of this process would ensure that, no matter how many times the script or tool runs, only a single entry for the user `spock` exists in the `/etc/passwd` file.
+
+### Programmable, Imperative Infrastructure Languages
+
