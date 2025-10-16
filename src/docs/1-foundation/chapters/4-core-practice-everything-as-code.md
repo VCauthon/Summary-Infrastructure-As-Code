@@ -56,7 +56,7 @@ By doing this, you will get:
 
 There are different types of coding languages that allows you to define IaC. Here comes some of it:
 
-### Infrastructure scripting
+### The older ways
 
 Before standard tools appeared for provisioning cloud infrastructure declaratively, __we wrote scripts in general-purpose, procedural languages__ (using Bash, Perl, PowerShell, Ruby and/or Python). Our scripts typically used and SDK to interact with the cloud provider's API.
 
@@ -95,8 +95,9 @@ This scripts mixes what to create and how to create it. This is done because the
 
 Taking into account that these scripts will have to make, over time, more and more validations, makes that some teams turn simplistic script into multipurpose scripts.
 
-### Declarative Infrastructure Languages
+### The current way
 
+#### Declarative Infrastructure Languages
 
 Many infrastructure code tools, including Ansible, Chef, CLoudFormation, Puppet and Terraform, uses declarative languages. __Your code defines your desired state for your infrastructure__, such as which packages and users accounts should be on a server or how much RAM and CPU resources it should have.
 
@@ -122,10 +123,10 @@ If you compare this code with the one shown [here](#infrastructure-scripting) yo
 
 Tools that uses declarative languages checks the current attributes of the infrastructure against what is declared, and works out what changes to make to bring the infrastructure in line. For example, if someone changes in the infrastructure the RAM of your server, like going from 2GB to 3GB, the tool will detect that difference and will change again the RAM to 2GB.
 
-Here’s the improved version formatted in Markdown:
+> Define the infrastructure declaratively when you want to ensure that the infrastructure ALWAYS has a specific status. For example, and in the previous case, let's say we want there to always be a server with the same characteristics. In this case, greatly simplified, we should opt for the declarative approach.
 
 ````markdown
-#### Idempotency
+##### Idempotency
 
 Idempotency means that when you apply a given piece of code, it always produces the same result — no matter how many times you run it.  
 
@@ -142,5 +143,25 @@ Running this script once will add the user `spock` to the `/etc/passwd` file. Ho
 
 An __idempotent__ version of this process would ensure that, no matter how many times the script or tool runs, only a single entry for the user `spock` exists in the `/etc/passwd` file.
 
-### Programmable, Imperative Infrastructure Languages
+#### Imperative Infrastructure Languages
+
+Declarative code is fine when you always want the same outcome. But there are situations where you want different results depending on the circumstances. This type of code is similar to scripting, but not entirely, as it works within a framework that offers features that make it more maintainable.
+
+Newer tools, such as [Pulumi](https://www.pulumi.com/) and the [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html), return to using programmatic languages for infrastructure. Much of their appeal is their support for general-purpose programming languages (it allows you to use TypeScript, JavaScript, Python, Java, C#/.Net, and maybe more).
+
+Rather seeing either declarative or imperative infrastructure languages as the correct paradigm, we should look at which types of concerns each one is mos suited for.
+
+> Define the infrastructure imperatively when you want to control the state of your infrastructure and, based on conditions in the logic itself, define resources in one way or another. For example, returning to the previous case, let's say we want the server to use one configuration or another based on the region. In this case, it would make more sense to use the imperative approach.
+
+### Domain-specific Infrastructure Languages
+
+In addition to being declarative, many infrastructure tools use their own DSL, or [domain-specific-language](https://martinfowler.com/books/dsl.html).
+
+A DSL is a language designed to model a specific domain, in our case infrastructure. This makes it easier to write code, and makes the code easier to understand, because it closely maps the thing you're defining.
+
+MAny stack management tools also use DSLs, including Terraform and CloudFormation. They expose concepts from their own domain, infrastructure platforms, so that you can directly write code that refers to virtual machines, disk volumes, and network routes.
+
+Many infrastructure DSLs are built as extensions of existing markup languages such as YAML (Ansible, CLoudFormation, anything related to K8) and JSON (Packer, and again CloudFormation). Some are internals DSLs, written as a subset (or superset) of a general-purpose programming languages.
+
+> Subset means that that DLS its using some features of a language to implement its logic. And a superset its an extension of an existing language (Typescript its a superset of JavaScript)
 
