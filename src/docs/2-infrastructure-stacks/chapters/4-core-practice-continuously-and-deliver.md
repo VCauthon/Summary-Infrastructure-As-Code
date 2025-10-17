@@ -4,3 +4,6 @@
 
 ---
 
+# Core practice: Continuously and Deliver
+
+This chapter focuses on fundamental challenges and approaches for testing infrastructure

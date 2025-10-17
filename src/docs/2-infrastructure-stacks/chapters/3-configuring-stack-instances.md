@@ -4,3 +4,6 @@
 
 ---
 
+# Configuring Stack Instances
+
+In this chapter it describes ways on which you can send configuration to a concrete stack. This configuration helps you to instance the infrastructure with a sets of settings that let you handle different use cases (for example, a production and a development environment).
