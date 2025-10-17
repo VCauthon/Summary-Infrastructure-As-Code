@@ -165,3 +165,4 @@ Many infrastructure DSLs are built as extensions of existing markup languages su
 
 > Subset means that that DLS its using some features of a language to implement its logic. And a superset its an extension of an existing language (Typescript its a superset of JavaScript)
 
+Others are external DSLs, which are interpreted by code written in a different language. For example, Terraform HCL is an external DS; the code is not related to the GO language it's interpreter is written in.
