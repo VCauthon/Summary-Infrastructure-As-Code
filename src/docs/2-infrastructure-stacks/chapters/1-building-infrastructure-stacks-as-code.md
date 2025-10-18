@@ -89,7 +89,7 @@ People build monolithic stacks because the simplest way to add a new element to 
   <img src="./static/monolithic-stack.png" alt="image" width="50%">
 </p>
 
-> You can see an example of this pattern in Terraform in [this section](../../../patterns/1-stack-patterns/README.md).
+> You can see an example of this pattern in Terraform in [this section](../../../patterns/1-stack-patterns/1-anti-pattern-monolithic-stack/README.md).
 
 #### Applicability
 
