@@ -20,3 +20,6 @@ Since the benefits of IaC don’t come automatically from cloud or automation to
 - [Infrastructure as Code](https://www.oreilly.com/library/view/infrastructure-as-code/9781491924334/) - By Kief Morris
 - [Icons taken from Flaticon](https://www.flaticon.com/)
 - [Diagrams made with draw.io](https://app.diagrams.net)
+- [How to Deploy an AWS ECS Cluster with Terraform](https://spacelift.io/blog/terraform-ecs)
+
+

@@ -20,3 +20,16 @@ Relations between services:
 - Each service will work with the same database
 - All the computer resources will be in the same network
 - All the webpages will be made in the same environment
+
+## Services been used:
+
+- ECS Cluster: Will host the service 1 and 2
+- ECS Task: Will define how the Service 1 and 2 will be created
+- Docker: Both service 1 and 2 will be images from Docker:
+    - Service 1 image:
+    - Service 2 image:
+- 
+
+<p align="center">
+  <img src="./static/stack-patterns-monolithic.png" alt="image" width="70%">
+</p>
