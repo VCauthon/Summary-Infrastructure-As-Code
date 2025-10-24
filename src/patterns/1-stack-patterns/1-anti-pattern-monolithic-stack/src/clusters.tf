@@ -1,5 +1,3 @@
-
-
 # Define the resources that the ecs cluster will handle to throw some task
 data "aws_ssm_parameter" "base_image" {
     name = "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended/image_id"
@@ -98,31 +96,4 @@ resource "aws_ecs_cluster_capacity_providers" "ecs_bind_cp_and_cluster" { # Bind
       weight = 100
       capacity_provider = aws_ecs_capacity_provider.ecs_capacity_provider.name
     }
-}
-
-# ECS instance definition
-data "aws_caller_identity" "current" {}
-resource "aws_ecs_task_definition" "ecs_task_definition" { # Define the task that will run in each instance
-    family = "my-ecs-task"
-    network_mode = "awsvpc"
-    execution_role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ecsTaskExecutionRole"
-
-    cpu = 256
-    runtime_platform {
-      operating_system_family = "LINUX"
-      cpu_architecture = "X86_64"
-    }
-
-    container_definitions = jsonencode([{
-        name = "dockergs"
-        image = "public.ecr.aws/f9n5f1l7/dgs:latest"
-        cpu = 256
-        memory = 512
-        essential = true
-        portMappings = [{
-            containerPort = 80
-            hostPort = 80
-            protocol = "tcp"
-        }]
-    }])
 }

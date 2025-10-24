@@ -26,8 +26,8 @@ Relations between services:
 - ECS Cluster: Will host the service 1 and 2
 - ECS Task: Will define how the Service 1 and 2 will be created
 - Docker: Both service 1 and 2 will be images from Docker:
-    - Service 1 image:
-    - Service 2 image:
+    - Service 1 image: https://hub.docker.com/r/joeyratt/webpage
+    - Service 2 image: 
 - 
 
 <p align="center">
