@@ -35,7 +35,7 @@ resource "aws_ecs_service" "ecs_service" {
     desired_count = 1
 
     network_configuration {
-      subnets = [aws_subnet.subnet.id]
+      subnets = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
       security_groups = [aws_security_group.security_group.id]
     }
 

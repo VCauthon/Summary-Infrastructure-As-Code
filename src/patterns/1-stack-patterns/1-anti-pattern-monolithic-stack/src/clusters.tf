@@ -2,15 +2,39 @@
 data "aws_ssm_parameter" "base_image" {
     name = "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended/image_id"
 }
+resource "aws_iam_role" "ecs_instance_role" { # Defines a role to allows EC2 resource to perform as ECS instances
+  name = "ecsInstanceRole"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect = "Allow",
+      Principal = { Service = "ec2.amazonaws.com" },
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+resource "aws_iam_role_policy_attachment" "ecs_ec2_policy" {  # The EC2 instance wil be able to function as an ECS container instance
+  role       = aws_iam_role.ecs_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+}
+resource "aws_iam_role_policy_attachment" "ssm_core" {  # Allows access to the instance 
+  role       = aws_iam_role.ecs_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+resource "aws_iam_instance_profile" "ecs_instance_profile" {  # Profile that EC2 will use
+  name = "ecsInstanceProfile"
+  role = aws_iam_role.ecs_instance_role.name
+}
 resource "aws_launch_template" "ecs_lt" {  # Define the configuration of each instance
     name_prefix = "webpage-url"
-    image_id = aws_ssm_parameter.base_image.value
+    image_id = data.aws_ssm_parameter.base_image.value
     instance_type = "t3.micro"
 
     key_name = "ec2ecsglog"
-    vpc_security_group_ids = [aws_security_group.security_group.security_group.id]
+    vpc_security_group_ids = [aws_security_group.security_group.id]
+
     iam_instance_profile {
-        name = "ecsInstanceRole"
+        arn = aws_iam_instance_profile.ecs_instance_profile.arn
     }
 
     block_device_mappings {
@@ -25,10 +49,10 @@ resource "aws_launch_template" "ecs_lt" {  # Define the configuration of each in
 
 # Sets how will scale the solution based on the demand
 resource "aws_autoscaling_group" "ecs_asg" {
-    vpc_zone_identifier = [aws_subnet.subnet]
-    desired_capacity = 1
-    max_size = 1
-    min_size = 0
+    vpc_zone_identifier = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
+    desired_capacity = 2
+    max_size = 3
+    min_size = 1
 
     launch_template {
       id = aws_launch_template.ecs_lt.id
@@ -44,14 +68,14 @@ resource "aws_lb" "ecs_alb" {
     load_balancer_type = "application"
 
     security_groups = [aws_security_group.security_group.id]
-    subnets         = [aws_subnet.subnet.id]
+    subnets         = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
 }
 resource "aws_lb_target_group" "ecs_tg" { # LB request destination
     name = "ecs-target-group"
     port = 80
     protocol = "HTTP"
 
-    target_type = "id"
+    target_type = "ip"
     vpc_id = aws_vpc.main.id
 
     health_check {
