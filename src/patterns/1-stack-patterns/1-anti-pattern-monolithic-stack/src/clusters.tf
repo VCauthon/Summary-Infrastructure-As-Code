@@ -30,7 +30,6 @@ resource "aws_launch_template" "ecs_lt" {  # Define the configuration of each in
     image_id = data.aws_ssm_parameter.base_image.value
     instance_type = "t3.micro"
 
-    key_name = "ec2ecsglog"
     vpc_security_group_ids = [aws_security_group.security_group.id]
 
     iam_instance_profile {
@@ -40,7 +39,7 @@ resource "aws_launch_template" "ecs_lt" {  # Define the configuration of each in
     block_device_mappings {
         device_name = "/dev/xvda"
         ebs {
-            volume_size = 5
+            volume_size = 30
             volume_type = "gp3"
         }
     }
@@ -105,7 +104,7 @@ resource "aws_ecs_capacity_provider" "ecs_capacity_provider" { # Sets how the de
 
       managed_scaling {
         maximum_scaling_step_size = 5
-        minimum_scaling_step_size = 0
+        minimum_scaling_step_size = 1
         status = "ENABLED"
         target_capacity = 100
       }
