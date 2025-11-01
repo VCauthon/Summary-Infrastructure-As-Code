@@ -48,6 +48,7 @@ resource "aws_launch_template" "ecs_lt" {  # Define the configuration of each in
 
 # Sets how will scale the solution based on the demand
 resource "aws_autoscaling_group" "ecs_asg" {
+    name = "asg-cluster-instances"
     vpc_zone_identifier = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
     desired_capacity = 2
     max_size = 3

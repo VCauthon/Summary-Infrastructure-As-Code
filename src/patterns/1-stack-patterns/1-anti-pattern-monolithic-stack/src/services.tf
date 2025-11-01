@@ -13,7 +13,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" { # Define the task tha
 
     container_definitions = jsonencode([{
         name = "dockergs"
-        image = "docker.io/joeyratt/webpage:tag"
+        image = "docker.io/joeyratt/webpage:latest"
         cpu = 256
         memory = 512
         essential = true
