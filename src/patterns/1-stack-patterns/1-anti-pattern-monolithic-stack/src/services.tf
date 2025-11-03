@@ -42,8 +42,8 @@ resource "aws_ecs_task_definition" "ecs_task_definition" { # Define the task tha
     memory    = 512
     essential = true
     portMappings = [{
-      containerPort = 80
-      hostPort      = 80
+      containerPort = 5000
+      hostPort      = 5000
       protocol      = "tcp"
     }]
     # logConfiguration = {
@@ -85,7 +85,7 @@ resource "aws_ecs_service" "ecs_service" {
   load_balancer {
     target_group_arn = aws_lb_target_group.ecs_tg.arn
     container_name   = "dockergs"
-    container_port   = 80
+    container_port   = 5000
   }
 
   triggers = {
