@@ -46,14 +46,15 @@ resource "aws_ecs_task_definition" "ecs_task_definition" { # Define the task tha
       hostPort      = 5000
       protocol      = "tcp"
     }]
-    # logConfiguration = {
-    #   logDriver = "awslogs"
-    #   awslogs-region = local.region
-    #   options = {
-    #     awslogs-group         = "/ecs/web-page"
-    #     awslogs-stream-prefix = "ecs"
-    #   }
-    # }
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-region = local.region
+        awslogs-group         = "/ecs/web-page"
+        awslogs-stream-prefix = "ecs"
+        awslogs-create-group = "true"
+      }
+    }
   }])
 }
 
