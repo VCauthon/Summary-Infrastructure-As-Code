@@ -23,3 +23,10 @@ Relations between services:
 <p align="center">
   <img src="./static/infrastructure_base.png" alt="image" width="70%">
 </p>
+
+Take into account that all resources will be tagged in AWS with the following value:
+
+```bash
+aws resourcegroupstaggingapi get-resources --tag-filters Key=GitProject,Values=SummaryInfrastructureAsCode
+```
+

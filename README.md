@@ -21,5 +21,4 @@ Since the benefits of IaC don’t come automatically from cloud or automation to
 - [Icons taken from Flaticon](https://www.flaticon.com/)
 - [Diagrams made with draw.io](https://app.diagrams.net)
 - [How to Deploy an AWS ECS Cluster with Terraform](https://spacelift.io/blog/terraform-ecs)
-
-
+- [How to Manage DynamoDB Tables With Terraform](https://spacelift.io/blog/terraform-dynamodb)
