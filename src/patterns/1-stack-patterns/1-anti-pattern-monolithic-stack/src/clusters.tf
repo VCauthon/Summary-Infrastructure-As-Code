@@ -54,6 +54,8 @@ resource "aws_autoscaling_group" "ecs_asg" {
   max_size            = 3
   min_size            = 1
 
+  force_delete = true
+
   launch_template {
     id      = aws_launch_template.ecs_lt.id
     version = "$Latest"
@@ -102,6 +104,8 @@ resource "aws_ecs_capacity_provider" "ecs_capacity_provider" { # Sets how the de
 
   auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.ecs_asg.arn
+    managed_termination_protection = "DISABLED"
+    managed_draining = "DISABLED"
 
     managed_scaling {
       maximum_scaling_step_size = 5

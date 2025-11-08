@@ -13,6 +13,7 @@ provider "aws" {
     tags = {
       TypePattern = "stack-patterns"
       PatternName = "MonolithicStack"
+      GitProject = "SummaryInfrastructureAsCode"
     }
   }
 }
