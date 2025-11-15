@@ -56,9 +56,19 @@ resource "aws_autoscaling_group" "ecs_asg" {
 
   force_delete = true
 
+  tag {
+    key                 = "AmazonECSManaged"
+    value               = ""
+    propagate_at_launch = true
+  }
+
   launch_template {
     id      = aws_launch_template.ecs_lt.id
     version = "$Latest"
+  }
+
+  lifecycle {
+    ignore_changes = [ desired_capacity ]
   }
 }
 
