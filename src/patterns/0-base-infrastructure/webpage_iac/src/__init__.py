@@ -12,7 +12,7 @@ path.append(str(CURRENT_PATH))
 from routes import bp  # noqa
 
 
-def create_app():
+def create_app() -> Flask:
     app = Flask(
         __name__,
         template_folder=str(CURRENT_PATH.joinpath("templates")))
