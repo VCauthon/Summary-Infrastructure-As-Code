@@ -45,6 +45,22 @@ resource "aws_route_table_association" "subnet_2_route" {
   route_table_id = aws_route_table.route_table.id
 }
 
+# Allow request to dynamodb
+resource "aws_vpc_endpoint" "dynamodb" {
+  vpc_id       = aws_vpc.main.id
+  service_name = "com.amazonaws.${local.region}.dynamodb"
+  vpc_endpoint_type = "Gateway"
+
+  route_table_ids = [
+    aws_route_table.route_table.id, # your existing one
+  ]
+
+  tags = {
+    Name = "dynamodb-endpoint"
+  }
+}
+
+
 # Security group from for the ECS implemented
 # THIS SECURITY GROUP ISN'T SECURE BECAUSE IT ALLOWS ANY REQUEST (PORT/PROTOCOL) TO THE RESOURCES WHICH ARE BOUND
 resource "aws_security_group" "security_group" {

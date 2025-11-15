@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = local.region
   default_tags {
     tags = {
       TypePattern = "stack-patterns"
