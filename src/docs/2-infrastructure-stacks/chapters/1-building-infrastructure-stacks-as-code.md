@@ -91,11 +91,7 @@ People build monolithic stacks because the simplest way to add a new element to 
 
 > You can see an example of this pattern in Terraform in [this section](../../../patterns/1-stack-patterns/1-anti-pattern-monolithic-stack/README.md).
 
-#### Applicability
-
 A monolithic stack may be appropriate when your system is small and simple. It's not appropriate when your system grows, to taking longer to provision and update.
-
-#### Consequences
 
 The impact of a failed change may be broader since there are more services and applications within the stack. Larger stacks are also slower to provision and change, which makes them harder to manage.
 
@@ -110,12 +106,58 @@ The symptoms of a monolithic stack include:
 - Changes to the stack frequently cause problems
 - You spend too much time maintaining systems and processes whose purpose is to manage the complexity of the stack
 
+---
+
 ### Pattern: Application Group Stack
 
+An application group stack includes the infrastructure for multiple related applications. The infrastructure for all of these applications is provisioned and managed as a group.
+
+You can understand this pattern as the predecessor of a monolithic pattern with slight differences:
+- __Monolithic Stack__: Groups the entire solution defined within the IT scope into a single stack.
+- __Application Group Stack__: Groups all the services of a single application into a stack.
+
+Defining the infrastructure for multiple related services together can make it easier to manage the application as a single unit.
+
+<p align="center">
+  <img src="./static/application_group_stack.png" alt="image" width="50%">
+</p>
+
+> You can see an example of this pattern in Terraform in [this section](../../../patterns/1-stack-patterns/2-pattern-application-group-stack/README.md).
+
+This pattern can work well when a single team owns the infrastructure and deployment of all the pieces of the application. An application group stack can align the boundaries of the stack to the team's responsibilities.
+
+Grouping the infrastructure for multiple applications together also combines the time, risk, and pace of changes. The team needs to manage the risk to the entire stack for every change, even if only one part is changing. __This pattern is inefficient if some parts of the stack change more frequently than others__.
+
+---
 
 ### Pattern: Service Stack
 
+A service stack manages the infrastructure for each deployable application component in a separate infrastructure stack.
+
+Service stack align the boundaries of infrastructure to the software that runs on it. This alignment limits the blast radius for a change to one service, which simplifies the process for scheduling changes. Service teams can own the infrastructure that relates to their software.
+
+<p align="center">
+  <img src="./static/service_stack.png" alt="image" width="50%">
+</p>
+
+> You can see an example of this pattern in Terraform in [this section](../../../patterns/1-stack-patterns/3-pattern-service-stack/README.md).
+
+Service stacks can work well with [microservices](https://martinfowler.com/articles/microservices.html) application architectures. They also help organizations with autonomous teams to ensure each team owns its infrastructure.
+
+> In short, the microservice architectural style 1 is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API.
+
+If you have multiple applications, each with an infrastructure stack, there could be an unnecessary duplication of code. For example, each stack may include code that specifies how to provision and application server. Duplication can encourage inconsistency.
+
+---
 
 ### Pattern: Micro Stack
 
+The micro stack pattern divides the infrastructure for a single service across multiple stacks. For example, you may have a separate stack project each for the networking, servers, and database.
 
+Different parts of a service's infrastructure change at different rates. Or they may have different characteristics that make them easier to manage separately. For instance, some methods for managing server instances involve frequently destroying and rebuilding them. However, some services use persistent data in a database of disk volume. Managing the servers and data in separate stacks means they can have different life cycle, with the server stack being rebuild much more often than the data stack.
+
+<p align="center">
+  <img src="./static/micro_stack.png" alt="image" width="50%">
+</p>
+
+> You can see an example of this pattern in Terraform in [this section](../../../patterns/1-stack-patterns/4-micro-stack/README.md).
