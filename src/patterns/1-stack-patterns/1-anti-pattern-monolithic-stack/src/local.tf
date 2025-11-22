@@ -1,5 +1,1 @@
-
-locals {
-  network_cidr_block = "10.0.0.0/16"
-  region             = "eu-west-1"
-}
+../../../0-base-infrastructure/src/aws_infrastructure/local.tf

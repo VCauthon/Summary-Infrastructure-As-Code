@@ -99,6 +99,17 @@ A monolithic stack may be appropriate when your system is small and simple. It's
 
 The impact of a failed change may be broader since there are more services and applications within the stack. Larger stacks are also slower to provision and change, which makes them harder to manage.
 
+##### Is my stack a monolith ?
+
+Whether your infrastructure stack is a monolith is a matter of judgment.
+
+The symptoms of a monolithic stack include:
+- It's difficult to understand how the pieces of the stack fit together
+- New people take a while learning the stack's codebase
+- Debugging problems with the stack is hard
+- Changes to the stack frequently cause problems
+- You spend too much time maintaining systems and processes whose purpose is to manage the complexity of the stack
+
 ### Pattern: Application Group Stack
 
 

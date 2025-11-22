@@ -1,2 +1,1 @@
-#!/bin/bash
-echo ECS_CLUSTER=my-ecs-cluster >> /etc/ecs/ecs.config
+../../../0-base-infrastructure/src/aws_infrastructure/ecs.sh

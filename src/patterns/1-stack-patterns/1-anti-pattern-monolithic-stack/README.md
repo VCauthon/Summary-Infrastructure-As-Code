@@ -1,35 +1,7 @@
-# Anti-pattern: Monolithic Stack
+# Monolithic Patter
 
 This section shows an example of how infrastructure code should be organized to create the Monolithic Stack anti-pattern.
 
-> This [section](../../docs/2-infrastructure-stacks/chapters/1-building-infrastructure-stacks-as-code.md#anti-patterns-monolithic-stack) describes this pattern.
+> This [section](../../../docs/2-infrastructure-stacks/chapters/1-building-infrastructure-stacks-as-code.md#anti-patterns-monolithic-stack) describes this pattern.
 
-The goal here is to create a stack that contains three different services, which are grouped together in the same stack and have dependencies among them.
-
-The services included are as follows:
-- __Service 1__:
-    - A web page that lists links parameterized in a database.
-    - When the user selects one of the links, the clicks are recorded in the same database.
-- __Service 2__:
-    - A database where the links displayed on the web page are stored.
-    - Additionally, this database keeps count of how many times each link has been selected.
-- __Service 3__:
-    - A monitoring web page where you can see how many times each link has been selected.
-
-Relations between services:
-- Each service will work with the same database
-- All the computer resources will be in the same network
-- All the webpages will be made in the same environment
-
-## Services been used:
-
-- ECS Cluster: Will host the service 1 and 2
-- ECS Task: Will define how the Service 1 and 2 will be created
-- Docker: Both service 1 and 2 will be images from Docker:
-    - Service 1 image: https://hub.docker.com/r/joeyratt/webpage
-    - Service 2 image: 
-- 
-
-<p align="center">
-  <img src="./static/stack-patterns-monolithic.png" alt="image" width="70%">
-</p>
+In the monolithic pattern, all resources are grouped into the same stack, which means we will have everything just as it is defined in the base infrastructure.
