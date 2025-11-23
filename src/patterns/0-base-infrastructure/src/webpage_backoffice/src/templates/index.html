@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDisplay Backoffice</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f1f1f1;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 4px;
+        }
+
+        .actions {
+            white-space: nowrap;
+        }
+
+        button {
+            padding: 4px 10px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .flash {
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .flash.error {
+            background-color: #ffe5e5;
+            color: #a00;
+        }
+
+        .flash.success {
+            background-color: #e5ffe5;
+            color: #0a0;
+        }
+
+        .section-title {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>WebDisplay Backoffice</h1>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="flash {{ category }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h2 class="section-title">Existing pages</h2>
+    <table>
+        <tr>
+            <th>Page</th>
+            <th>URL</th>
+            <th>Counter</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for p in pages %}
+        <tr>
+            <form method="post" action="{{ url_for('main.update_or_delete_page', page_name=p.page) }}">
+                <td>{{ p.page }}</td>
+                <td>
+                    <input type="text" name="url" value="{{ p.url }}">
+                </td>
+                <td>
+                    <input type="number" name="counter" value="{{ p.counter }}">
+                </td>
+                <td class="actions">
+                    <button type="submit" name="action" value="save">Save</button>
+                    <button type="submit" name="action" value="delete"
+                            onclick="return confirm('Delete page {{ p.page }}?');">
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2 class="section-title">Add new page</h2>
+    <form method="post" action="{{ url_for('main.create_page') }}">
+        <table>
+            <tr>
+                <th>Page</th>
+                <th>URL</th>
+                <th>Counter</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="page" placeholder="Page name"></td>
+                <td><input type="text" name="url" placeholder="https://example.com"></td>
+                <td><input type="number" name="counter" value="0"></td>
+                <td class="actions">
+                    <button type="submit">Create</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
