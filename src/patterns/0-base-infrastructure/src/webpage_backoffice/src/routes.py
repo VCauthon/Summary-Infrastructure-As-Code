@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import List
 
-from flask import render_template, Blueprint, request, redirect, url_for, flash
+from flask import render_template, Blueprint, request, redirect, url_for
 
 from service.database import Database
 from service.models.page_items import WebPage
@@ -33,13 +33,13 @@ def get_values_list() -> List[WebPage]:
     return DATABASE.get_pages()
 
 
-@bp.route("/", methods=["GET"])
+@bp.route("/backoffice/", methods=["GET"])
 def main():
     pages = get_values_list()
     return render_template("index.html", pages=pages)
 
 
-@bp.route("/page", methods=["POST"])
+@bp.route("/backoffice/page", methods=["POST"])
 def create_page():
     """Create a new page entry."""
     page = request.form.get("page", "").strip()
@@ -52,24 +52,22 @@ def create_page():
         counter = 0
 
     if not page or not url:
-        flash("Page name and URL are required.", "error")
         return redirect(url_for("main.main"))
 
     record = WebPage(page=page, url=url, counter=counter)
     DATABASE.save_page(record)
-    flash(f"Page '{page}' created.", "success")
 
-    return redirect(url_for("main.main"))
+    pages = get_values_list()
+    return render_template("index.html", pages=pages)
 
 
-@bp.route("/page/<string:page_name>", methods=["POST"])
+@bp.route("/backoffice/page/<string:page_name>", methods=["POST"])
 def update_or_delete_page(page_name: str):
     """Update or delete an existing page."""
     action = request.form.get("action")
 
     if action == "delete":
         DATABASE.delete_page(page_name)
-        flash(f"Page '{page_name}' deleted.", "success")
         return redirect(url_for("main.main"))
 
     # Default action: save/update
@@ -82,11 +80,10 @@ def update_or_delete_page(page_name: str):
         counter = 0
 
     if not url:
-        flash("URL cannot be empty when updating.", "error")
         return redirect(url_for("main.main"))
 
     record = WebPage(page=page_name, url=url, counter=counter)
     DATABASE.save_page(record)
-    flash(f"Page '{page_name}' updated.", "success")
 
-    return redirect(url_for("main.main"))
+    pages = get_values_list()
+    return render_template("index.html", pages=pages)

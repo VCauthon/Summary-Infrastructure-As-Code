@@ -94,6 +94,18 @@ resource "aws_lb_target_group" "ecs_tg" { # LB request destination
     path = "/"
   }
 }
+resource "aws_lb_target_group" "ecs_tg_backoffice" { # LB request destination
+  name     = "ecs-target-group-backoffice"
+  port     = 80
+  protocol = "HTTP"
+
+  target_type = "ip"
+  vpc_id      = aws_vpc.main.id
+
+  health_check {
+    path = "/"
+  }
+}
 resource "aws_lb_listener" "ecs_alb_listener" { # LB entry point
   load_balancer_arn = aws_lb.ecs_alb.arn
   port              = 80
@@ -102,6 +114,21 @@ resource "aws_lb_listener" "ecs_alb_listener" { # LB entry point
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.ecs_tg.arn
+  }
+}
+resource "aws_lb_listener_rule" "ecs_alb_listener_rule_backoffice" {
+  listener_arn = aws_lb_listener.ecs_alb_listener.arn
+  priority     = 10
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.ecs_tg_backoffice.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/backoffice/*"]
+    }
   }
 }
 
