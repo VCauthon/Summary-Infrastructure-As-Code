@@ -45,3 +45,18 @@ resource "aws_dynamodb_table_item" "dynamo_db_record" {
       ignore_changes = [ item ]
     }
 }
+
+
+resource "aws_dynamodb_table" "aws_dynamodb_table_rn" {
+    name = "RelatedNews"
+
+    billing_mode = "PROVISIONED"
+    read_capacity = 1
+    write_capacity = 1
+
+    hash_key = local.hash_key
+    attribute {
+      name = local.hash_key
+      type = "S"
+    }
+}
