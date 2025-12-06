@@ -17,7 +17,7 @@ class HackerNews(NewsExtractor):
             histories.append(
                 News(
                     source=self._extractor.source,
-                    id=item,
+                    new_id=f"hk-{item}",
                     title=context.get("title"),
                     url=context.get("url"),
                     date=datetime.fromtimestamp(context.get("time"))

@@ -14,9 +14,11 @@ class DynamoDB:
         items = self._table.scan()
         return items["Items"] if "Items" in items else []
 
-    def set_value(self, value: Dict[str, Any]) -> None:
+    def set_items(self, values: List[Dict[str, Any]]) -> None:
         """Create or update an item."""
-        self._table.put_item(Item=value)
+        with self._table.batch_writer() as batch:
+            for value in values:
+                batch.put_item(Item=value)
 
     def delete_item(self, key: Dict[str, Any]) -> None:
         """Delete an item by key."""

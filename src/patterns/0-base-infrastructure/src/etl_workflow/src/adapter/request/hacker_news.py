@@ -1,5 +1,4 @@
 from typing import List, Dict
-from dataclasses import dataclass
 
 
 from adapter.request._base import Request
