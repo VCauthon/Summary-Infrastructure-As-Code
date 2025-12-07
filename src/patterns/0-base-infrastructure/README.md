@@ -50,7 +50,40 @@ aws elbv2 describe-load-balancers \
   --output text
 ```
 
-You can also check if there are news loaded using the following command:
+## Accessing to each solution
+
+### Webpage IaC
+
+Ask to the load balancer the DNS thats been using (this is already shown [here](#checks-to-know-that-the-solution-works)) and then use that link directly into a browser.
+
+Here you can see an example of what you will see:
+<p align="center">
+  <img src="./static/example_webpage.png" alt="image" width="50%">
+</p>
+
+### Backoffice
+
+Use the same link that its been copied before but add the following path.
+- `*/backoffice/`
+
+> Don't forget the `/` at the end or the solution won't work.
+
+Here you can see an example of what you will see:
+<p align="center">
+  <img src="./static/example_backoffice.png" alt="image" width="50%">
+</p>
+
+### ETL Workflow
+
+Lastly in this case you can wait for the cron to be triggered (at 23:59 each day) or just execute the lambda with the following command:
+```
+aws lambda invoke \
+    --function-name etl_workflow output.log
+```
+
+> __NOTE__: Take into account that this command will create a file called `output.log` with the logs of the lambda
+
+Once the command has been executed you can scan the DynamoDB table where the news supposed to exist:
 ```bash
 aws dynamodb scan \
     --table-name RelatedNews
@@ -71,6 +104,18 @@ aws autoscaling update-auto-scaling-group \
     --max-size 0 \
     --desired-capacity 0
 
+# Asking to stop all services from the task
+aws ecs update-service \
+  --cluster 'my-ecs-cluster' \
+  --service 'web-page' \
+  --desired-count 0
+aws ecs update-service \
+  --cluster 'my-ecs-cluster' \
+  --service 'web-backoffice' \
+  --desired-count 0
+
 # Check if there are any resting instance (if the value is 0, you can delete the entire stack again)
 aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name 'asg-cluster-instances' --query 'AutoScalingGroups[0].Instances'
 ```
+
+Once this is done you can run `terraform destroy`.
