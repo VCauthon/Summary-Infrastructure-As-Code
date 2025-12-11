@@ -110,13 +110,13 @@ The symptoms of a monolithic stack include:
 
 ### Pattern: Application Group Stack
 
-An application group stack includes the infrastructure for multiple related applications. The infrastructure for all of these applications is provisioned and managed as a group.
+An application group stack includes the infrastructure for **multiple related services that together form a single application**. The infrastructure for all of these services is provisioned and managed **as one unit**.
 
-You can understand this pattern as the predecessor of a monolithic pattern with slight differences:
-- __Monolithic Stack__: Groups the entire solution defined within the IT scope into a single stack.
-- __Application Group Stack__: Groups all the services of a single application into a stack.
+You can understand this pattern as an evolution of a monolithic approach, with clearer internal boundaries:
+- __Monolithic Stack__: Groups the **entire IT solution** (possibly multiple applications) into a single stack.
+- __Application Group Stack__: Groups **all services belonging to one application** into a single stack.
 
-Defining the infrastructure for multiple related services together can make it easier to manage the application as a single unit.
+Defining the infrastructure for multiple related services together makes it possible to manage the **entire application lifecycle** as a single unit (provisioning, deployment, rollback, and teardown).
 
 <p align="center">
   <img src="./static/application_group_stack.png" alt="image" width="50%">
@@ -124,17 +124,21 @@ Defining the infrastructure for multiple related services together can make it e
 
 > You can see an example of this pattern in Terraform in [this section](../../../patterns/1-stack-patterns/2-pattern-application-group-stack/README.md).
 
-This pattern can work well when a single team owns the infrastructure and deployment of all the pieces of the application. An application group stack can align the boundaries of the stack to the team's responsibilities.
+This pattern works well when a **single team owns the full application**, including all of its services and infrastructure. The boundaries of the stack align with the **application boundary**, which often matches the team's responsibilities.
 
-Grouping the infrastructure for multiple applications together also combines the time, risk, and pace of changes. The team needs to manage the risk to the entire stack for every change, even if only one part is changing. __This pattern is inefficient if some parts of the stack change more frequently than others__.
+However, grouping all services into one stack also **couples their change lifecycle**. Any infrastructure change—no matter how small—requires planning, applying, and validating the **entire application stack**.
+
+As a result, __this pattern becomes inefficient when different services within the same application change at different frequencies or have different risk profiles__.
 
 ---
 
 ### Pattern: Service Stack
 
-A service stack manages the infrastructure for each deployable application component in a separate infrastructure stack.
+A service stack manages the infrastructure for **a single deployable application component** in its own, independent infrastructure stack.
 
-Service stack align the boundaries of infrastructure to the software that runs on it. This alignment limits the blast radius for a change to one service, which simplifies the process for scheduling changes. Service teams can own the infrastructure that relates to their software.
+Service stacks align the boundaries of infrastructure with the **software deployment unit**. Each stack typically includes everything required to run one service: compute, networking configuration, permissions, and any service-specific dependencies.
+
+This alignment significantly reduces the **blast radius of changes**. Infrastructure updates, scaling actions, or failures affect only the service that owns the stack, making change management and release scheduling simpler and safer.
 
 <p align="center">
   <img src="./static/service_stack.png" alt="image" width="50%">
@@ -142,11 +146,11 @@ Service stack align the boundaries of infrastructure to the software that runs o
 
 > You can see an example of this pattern in Terraform in [this section](../../../patterns/1-stack-patterns/3-pattern-service-stack/README.md).
 
-Service stacks can work well with [microservices](https://martinfowler.com/articles/microservices.html) application architectures. They also help organizations with autonomous teams to ensure each team owns its infrastructure.
+Service stacks are a natural fit for [microservices](https://martinfowler.com/articles/microservices.html) architectures, where a single application is composed of many small, independently deployable services. They also support organizational models with **autonomous or cross-functional teams**, where each team owns both the service code and its infrastructure.
 
-> In short, the microservice architectural style 1 is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API.
+> In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API.
 
-If you have multiple applications, each with an infrastructure stack, there could be an unnecessary duplication of code. For example, each stack may include code that specifies how to provision and application server. Duplication can encourage inconsistency.
+One trade-off of this pattern is the potential **duplication of infrastructure code** across stacks. For example, multiple service stacks may define similar resources such as application servers, logging, or monitoring. Without shared modules or abstractions, this duplication can lead to **inconsistency and higher maintenance effort**.
 
 ---
 

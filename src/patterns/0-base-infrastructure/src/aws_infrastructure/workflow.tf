@@ -61,7 +61,7 @@ resource "aws_iam_role_policy_attachment" "lambda_dynamodb_attach" {
 # Create a zip file about the python script
 data "archive_file" "python_script" {
   type        = "zip"
-  source_dir = "../etl_workflow/src"
+  source_dir = local.local_dir_etl_workflow
   output_path = local.temp_dir
 }
 

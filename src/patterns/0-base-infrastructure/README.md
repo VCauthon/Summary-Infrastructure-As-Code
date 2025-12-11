@@ -76,7 +76,7 @@ Here you can see an example of what you will see:
 ### ETL Workflow
 
 Lastly in this case you can wait for the cron to be triggered (at 23:59 each day) or just execute the lambda with the following command:
-```
+```bash
 aws lambda invoke \
     --function-name etl_workflow output.log
 ```
