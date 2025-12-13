@@ -12,7 +12,7 @@ provider "aws" {
   default_tags {
     tags = {
       TypePattern = "stack-patterns"
-      PatternName = "ApplicationGroupStack"
+      PatternName = "ServiceStack"
       GitProject = "SummaryInfrastructureAsCode"
     }
   }

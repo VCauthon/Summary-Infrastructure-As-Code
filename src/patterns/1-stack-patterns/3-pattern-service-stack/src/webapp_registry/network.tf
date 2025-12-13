@@ -1,0 +1,1 @@
+../../../../0-base-infrastructure/src/aws_infrastructure/network.tf
