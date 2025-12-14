@@ -1,7 +1,9 @@
-# Monolithic Patter
+# Monolithic stack
 
-This section shows an example of how infrastructure code should be organized to create the Monolithic Stack anti-pattern.
+This section introduces an example of how infrastructure code can be organized using the **Monolithic Stack** anti-pattern.
 
-> This [section](../../../docs/2-infrastructure-stacks/chapters/1-building-infrastructure-stacks-as-code.md#anti-patterns-monolithic-stack) describes this pattern.
+> A detailed explanation of this anti-pattern can be found in this [section](../../../docs/2-infrastructure-stacks/chapters/1-building-infrastructure-stacks-as-code.md#anti-patterns-monolithic-stack).
 
-In the monolithic pattern, all resources are grouped into the same stack, which means we will have everything just as it is defined in the base infrastructure.
+With the Monolithic Stack approach, **all infrastructure resources are defined within a single stack**.
+
+In this exercise, this means that every resource is deployed together, exactly as defined in the base infrastructure, without any logical separation by service or application.

@@ -1,9 +1,11 @@
 # Application group stack
 
-This section shows an example of how infrastructure code should be organized to create the Application group stack.
+This section introduces an example of how infrastructure code can be organized using the **Application Group Stack** pattern.
 
-> This [section](../../../docs/2-infrastructure-stacks/chapters/1-building-infrastructure-stacks-as-code.md#pattern-application-group-stack) describes this pattern.
+> A detailed explanation of this pattern can be found in this [section](../../../docs/2-infrastructure-stacks/chapters/1-building-infrastructure-stacks-as-code.md#pattern-application-group-stack).
 
-In the application group, all resources are grouped in stacks by applications. In our case, we are going to create 2 stacks because we have 2 applications which are:
-- The registry webpage
-- ETL workflow
+With the Application Group Stack approach, infrastructure resources are grouped by **application**, with each application defined in its own stack.
+
+In this exercise, we define **two stacks**, corresponding to the applications identified in the system:
+- **Registry webpage**
+- **ETL workflow**
