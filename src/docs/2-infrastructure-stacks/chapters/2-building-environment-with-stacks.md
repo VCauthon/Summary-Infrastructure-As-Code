@@ -53,7 +53,7 @@ When running a tool to update a stack instance, __the scope of a potential chang
 
 
 <p align="center">
-  <img src="./static/multi_environment_stack.png" alt="image" width="50%">
+  <img src="./static/multi_environment_stack.png" alt="image" width="25%">
 </p>
 
 > You can see an example of this pattern in Terraform in [this section](../../../patterns/2-environment-patterns/1-antipattern-multiple-environment-stack/README.md).
@@ -62,13 +62,19 @@ When your production environment is in the same stack instance as another enviro
 
 ## Antipattern: Copy-Paste Environments
 
-> Introduction
+The copy-paste environments antipattern uses a separate stack source code project for each infrastructure stack instance.
 
-> Image summary
+In the following example it can be seen three environments. Each of these environments have they own stack. **Changes are made by editing the code in one environment and then copying the changes into each of the other environments in turn**.
+
+<p align="center">
+  <img src="./static/copy_paste_environment.png" alt="image" width="50%">
+</p>
 
 > You can see an example of this pattern in Terraform in [this section](../../../patterns/2-environment-patterns/2-antipattern-copy-paste-environment/README.md).
 
-> Conclusion
+It can be challenging to maintain multiple copy-paste environments. WHen you want to make a code change, you need to copy it to every project. You probably need to test each instance separately, as a change may work in one but not another.
+
+Using copy-paste environments for delivery environments reduces the reliability of the deployment process and the validity of testing, due to inconsistencies from one environment to the next.
 
 ## Pattern: Reusable Stack
 
