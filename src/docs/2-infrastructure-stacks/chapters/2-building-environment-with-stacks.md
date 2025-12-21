@@ -78,10 +78,21 @@ Using copy-paste environments for delivery environments reduces the reliability 
 
 ## Pattern: Reusable Stack
 
-> Introduction
+A reusable stack is an infrastructure source code project that is used to create multiple instances of the same stack.
 
-> Image summary
+You create a reusable stack to maintain multiple consistent instances of infrastructure. When you make changes to the stack code, you can apply and test them in one instance, and then use the same code version to create or update multiple additional instances. This allows you to provision new instances of the stack with minimal ceremony, potentially even automatically.
+
+Let’s think about an example that captures all these traits:
+- The infrastructure code is defined in a single stack (to keep it simple).
+- Based on that stack, we define three environments, which are the most common ones: Test, Staging, and Production.
+- The main differences between each environment are the configuration values.
+
+<p align="center">
+  <img src="./static/reusable_pattern.png" alt="image" width="70%">
+</p>
+
+The key difference between this stack and others is that the stack is defined in a single place, while each environment has its own configuration.
 
 > You can see an example of this pattern in Terraform in [this section](../../../patterns/2-environment-patterns/3-pattern-reusable-stack/README.md).
 
-> Conclusion
+The ability to provision and update multiple stacks from the same project enhances scalability, reliability, and throughput. You can manage more instances with less effort, make changes with a lower risk of failure, and roll changes out to more systems more rapidly.
